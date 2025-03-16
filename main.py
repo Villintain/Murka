@@ -60,13 +60,9 @@ bot = commands.Bot(
 def exists(name_table,element_name,element):
     conn = sq.connect('DND.db')
     cursor = conn.cursor()
-    info = cursor.execute("SELECT * FROM ? WHERE ? = ?",(name_table,element_name,element)).fetchall
-    if len(info) != 0:
-        return True
-    else:
-        return False
 
-
+    info = cursor.execute(f"SELECT EXISTS(SELECT {element_name} FROM {name_table} WHERE {element_name} = ?)",(str(element),)).fetchone()[0]
+    
 
 
 
@@ -124,7 +120,6 @@ async def createcompany(ctx,name_comp:str,master_c:disnake.Member,player:disnake
     elif info_name == True:
         await ctx.send(f"Назввание {name_comp} уже занято :(")
     else:
-
 
 
         #Создание ролей 
