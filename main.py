@@ -130,14 +130,13 @@ async def createcompany(ctx,name_comp:str,master_c:disnake.Member,player:disnake
 
 
         #Создание ролей 
-        await ctx.guild.create_role(name=f"Мастер {name_comp}", color=0xC71585)
-        await ctx.guild.create_role(name=f"Игрок {name_comp}", color=0x349864)
-        roleCompMaster = disnake.utils.get(ctx.guild.roles,name=f'Мастер {name_comp}')
-        roleCompPlayer = disnake.utils.get(ctx.guild.roles,name=f'Игрок {name_comp}')
+        roleCompMaster = await ctx.guild.create_role(name=f"Мастер {name_comp}", color=0xC71585)
         roleMaster = disnake.utils.get(ctx.guild.roles, id = 1350095630575468619)
-        rolePl = disnake.utils.get(ctx.guild.roles, id = 1350095445321453658)
-        
+        await roleCompMaster.edit(position=roleMaster.position-1)
 
+        roleCompPlayer = await ctx.guild.create_role(name=f"Игрок {name_comp}", color=0x349864)
+        rolePl = disnake.utils.get(ctx.guild.roles, id = 1350776809393881159)
+        await roleCompPlayer.edit(position=rolePl.position-1)
 
         #Выдача ролей
         await master_c.add_roles(roleMaster)
