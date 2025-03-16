@@ -63,6 +63,13 @@ def exists(name_table,element_name,element):
 
     info = cursor.execute(f"SELECT EXISTS(SELECT {element_name} FROM {name_table} WHERE {element_name} = ?)",(str(element),)).fetchone()[0]
     
+    if info == 0:
+        return False
+    elif info != 0:
+        return True
+    
+
+
 
 
 
